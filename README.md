@@ -37,9 +37,9 @@ ws.onmessage = (event) => {
 ## Servizi
 ### WebSocketHandler 
 Servizio che si occupa di gestire l'interazione con la pagine dell'utente.
+All'apertura del web socket viene inoltrata una richiesta all'API per la generazione di codici QR, specificando il proprio id (vedi [Richiesta QRCode Web Socket Client](#esempio-qrcode-request)).
 
 ```java
-All'apertura del web socket viene inoltrata una richiesta all'API per la generazione di codici QR, specificando il proprio id (vedi [Richiesta QRCode Web Socket Client](#esempio-qrcode-request)).
 @OnOpen
 public static void OnOpen(Session webSocketSession) throws IOException {
     String webSocketId = webSocketSession.getId();
@@ -89,10 +89,10 @@ public Response authenticate(
 
 Viene effettuata l'autenticazione dell'utente mediante i dati ricevuti, in caso sia valido, riceve un cookie che lo identifica e attesta la sua sessione.
 
-### TL;DR:
+##  TL;DR:
 L'applicazione web genera un QRCode contenente l'URL per l'autenticazione che, alla lettura da parte dell'applicazione mobile, viene completato con le credenziali dell'utente e viene inoltrata ad un'API che fornisce URL completato all web socket associato all'QR letto. Il web socket inoltra quindi la richiesta di autenticazioen con la stinga completa.
 
-### TODO:
+## TODO:
 - Realizzare persistenza database.
 - Realizzare pagine html (login, signin, ...)
 - Realizzare reindirizzamento pagine
