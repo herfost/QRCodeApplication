@@ -36,12 +36,12 @@ public final class Authenticator extends Application {
             @PathParam("webSocketId") String webSocketId,
             @PathParam("username") String username,
             @PathParam("password") String password,
-            @PathParam("password") String applicationId
+            @PathParam("applicationId") String applicationId
     ) throws URISyntaxException, URISyntaxException, MalformedURLException {
         UserLogin userLogin = new UserLogin(username, password);
         NewCookie autheticationCookie = SecurityHandler.authenticateUserLogin(userLogin, persistence);
-        CookieHandler.addCookie(webSocketId, autheticationCookie);
 
+        CookieHandler.addCookie(webSocketId, autheticationCookie);
         return autheticationCookie == null
                 ? Response.ok().status(Response.Status.UNAUTHORIZED).build()
                 : Response.ok("WELCOME").cookie(autheticationCookie).build();
@@ -64,8 +64,9 @@ public final class Authenticator extends Application {
         String contextPath = Configuration.getCONTEXT_PATH();
         String servicePath = Configuration.getAUTHENTICATION_PATH();
 
-        // ULR = AUTH@localhost:8080/QRCodeApplication/authenticate/webSocketId/username/password/applicationId
-        String URL = optionToken + divider + protocol + "/" + serverName + ":" + serverPort + "/" + contextPath + "/" + servicePath + "/" + webSocketId + "/" + username + "/" + password + "/" + applicationId;
+        // ULR = AUTH@http://localhost:8080/QRCodeApplication/authenticate/webSocketId/username/password/applicationId
+        String URL = optionToken + divider + protocol + "://" + serverName + ":" + serverPort + "/" + contextPath + "/" + servicePath + "/" + webSocketId + "/" + username + "/" + password + "/" + applicationId;
+        System.out.println(URL);
 
         Session webSocketSession = SessionHandler.getSession(webSocketId);
         webSocketSession.getBasicRemote().sendText(URL);

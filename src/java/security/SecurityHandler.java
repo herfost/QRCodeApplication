@@ -15,7 +15,6 @@ public final class SecurityHandler {
             UserLogin readUserLogin = persistence.read(userKey);
             String userPassword = encrypter.encrypt(userLogin.getPassword());
             userLogin.setPassword(userPassword);
-
             return userLogin.equals(readUserLogin);
         } catch (IllegalArgumentException ex) {
             return false;
