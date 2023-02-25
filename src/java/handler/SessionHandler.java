@@ -15,4 +15,8 @@ final public class SessionHandler {
     public static void addSession(String webSocketId, Session webSocketSession) {
         activeSessions.put(webSocketId, webSocketSession);
     }
+
+    public static void removeSession(String webSocketId) {
+        activeSessions.remove(webSocketId);
+    }
 }

@@ -41,10 +41,15 @@ public final class Authenticator extends Application {
         UserLogin userLogin = new UserLogin(username, password);
         NewCookie autheticationCookie = SecurityHandler.authenticateUserLogin(userLogin, persistence);
 
+        Session session = SessionHandler.getSession(webSocketId);
+        if (null != session) {
+            SessionHandler.removeSession(webSocketId);
+        }
+
         CookieHandler.addCookie(webSocketId, autheticationCookie);
-        return autheticationCookie == null
+        return autheticationCookie == null || session == null
                 ? Response.ok().status(Response.Status.UNAUTHORIZED).build()
-                : Response.ok("WELCOME").cookie(autheticationCookie).build();
+                : Response.ok("<h1>Autenticato</h1>").cookie(autheticationCookie).build();
     }
 
     @GET

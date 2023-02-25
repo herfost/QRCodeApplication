@@ -32,6 +32,7 @@ public class WebSoketHandler {
         Authenticator.persistence.create(new UserLogin(username, password));
          */
         return getPage("index.html");
+
     }
 
     @GET

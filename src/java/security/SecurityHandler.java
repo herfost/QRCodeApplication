@@ -24,6 +24,7 @@ public final class SecurityHandler {
     public static NewCookie authenticateUserLogin(UserLogin userLogin, IPersistence<String, UserLogin> persistence) {
         String name = "authentication-token";
         String value = "TODO:metodoperlagenerazionedeitoken"; // TODO: Specificare metodo per la generazione di token
+
         return isValidUserLogin(userLogin, persistence)
                 ? new NewCookie(name, value)
                 : null;
